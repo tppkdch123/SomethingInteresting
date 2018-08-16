@@ -1,3 +1,4 @@
-/target/
-/.idea/
-/SomethingInterestring.iml
+*target
+*.idea/workspace.xml
+*SomethingInterestring.iml
+
