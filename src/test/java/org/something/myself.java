@@ -1,6 +1,7 @@
 package org.something;
 
 import com.google.common.collect.Lists;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 import java.math.BigDecimal;
@@ -30,5 +31,10 @@ public class myself {
     @Test
     public void behind(){
         System.out.println(Integer.valueOf(""));
+    }
+
+    @Test
+    public void testAa(){
+
     }
 }
