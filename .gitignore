@@ -1,0 +1,15 @@
+target
+.project
+.classpath
+.settings
+*.iml
+/.idea/
+bin
+.gradle
+*.DS_Store
+docker*
+*.sql
+classes/
+node_modules/
+*.ipr
+*.iws
