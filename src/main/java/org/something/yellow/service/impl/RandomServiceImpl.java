@@ -1,10 +1,10 @@
-package org.somthing.yellow.service.impl;
+package org.something.yellow.service.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.somthing.yellow.service.RandomService;
-import org.somthing.yellow.vo.FirstVO;
-import org.somthing.yellow.vo.Point;
+import org.something.yellow.service.RandomService;
+import org.something.yellow.vo.FirstVO;
+import org.something.yellow.vo.Point;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -27,76 +27,82 @@ public class RandomServiceImpl implements RandomService {
     public FirstVO getResult(String params, Double value) {
         List<Point> param = Arrays.stream(params.split(";")).parallel().distinct().map(Point::new).collect(Collectors.toCollection(LinkedList::new));
 
-        Point start = param.get(0);
         List<Point> result = new LinkedList<>();
-        Point end = param.get(param.size() - 1);
 
-        double sum = 0;
-        int index = -1;
-        double max = -1;
+        List<Point> op = param;
 
-        for (int i = 1; i < param.size() - 1; i++) {
-            double distance = getDistance(start, end, param.get(i));
-            sum += distance;
-            if (distance > max) {
-                max = distance;
-                index = i;
+        if (param.size() >= 3) {
+            Point start = param.get(0);
+            Point end = param.get(param.size() - 1);
+
+            double sum = 0;
+            int index = -1;
+            double max = -1;
+
+            for (int i = 1; i < param.size() - 1; i++) {
+                double distance = getDistance(start, end, param.get(i));
+                sum += distance;
+                if (distance > max) {
+                    max = distance;
+                    index = i;
+                }
+            }
+
+            op = getResult(param, value, sum, max, index, result);
+
+            if (CollectionUtils.isEmpty(op)) {
+                return new FirstVO();
             }
         }
-
-        List<Point> op = getResult(param, value, sum, max, index, result);
-
-        if (CollectionUtils.isEmpty(op)) {
-            return new FirstVO();
-        }
-
         FirstVO firstVO = new FirstVO();
 
         firstVO.setResultPoints(op);
 
         firstVO.setResultSeparatePoints(result);
 
-        firstVO.setPoints(op.stream().map(Point::getResult).collect(Collectors.joining(";","",";")));
+        firstVO.setPoints(op.stream().map(Point::getResult).collect(Collectors.joining(";", "", ";")));
 
-        firstVO.setSeparatePoints(result.stream().map(Point::getResult).collect(Collectors.joining(";","",";")));
+        firstVO.setSeparatePoints(result.stream().map(Point::getResult).collect(Collectors.joining(";", "", ";")));
 
         return firstVO;
     }
 
     @Override
     public String getResultByString(String params, Double value) {
-
-        LOGGER.info("入参 [ {} ]",params);
+        LOGGER.info("阈值 [ {} ]", value);
+        LOGGER.info("入参 [ {} ]", params);
         List<Point> param = Arrays.stream(params.split(";")).parallel().distinct().map(Point::new).collect(Collectors.toCollection(LinkedList::new));
 
-        Point start = param.get(0);
         List<Point> result = new LinkedList<>();
-        Point end = param.get(param.size() - 1);
 
-        double sum = 0;
-        int index = -1;
-        double max = -1;
+        List<Point> op = param;
 
-        for (int i = 1; i < param.size() - 1; i++) {
-            double distance = getDistance(start, end, param.get(i));
-            sum += distance;
-            if (distance > max) {
-                max = distance;
-                index = i;
+        if (param.size() >= 3) {
+            Point start = param.get(0);
+
+            Point end = param.get(param.size() - 1);
+
+            double sum = 0;
+            int index = -1;
+            double max = -1;
+
+            for (int i = 1; i < param.size() - 1; i++) {
+                double distance = getDistance(start, end, param.get(i));
+                sum += distance;
+                if (distance > max) {
+                    max = distance;
+                    index = i;
+                }
+            }
+
+            op = getResult(param, value, sum, max, index, result);
+
+            if (CollectionUtils.isEmpty(op)) {
+                return "返回结果为空";
             }
         }
-
-        List<Point> op = getResult(param, value, sum, max, index, result);
-
-        if (CollectionUtils.isEmpty(op)) {
-            return "返回结果为空";
-        }
-
-        StringBuilder str = new StringBuilder();
-
-        str.append("结果点：").append("\n").append(op.stream().map(Point::getResult).collect(Collectors.joining(";","",";")))
-                .append("分割点：\n").append(result.stream().map(Point::getResult).collect(Collectors.joining(";","",";")));
-        return str.toString();
+        return new StringBuilder().append("结果点：").append("\n").append(op.stream().map(Point::getResult).collect(Collectors.joining(";", "", ";")))
+                .append("\n").append("分割点：\n").append(result.stream().map(Point::getResult).collect(Collectors.joining(";", "", ";"))).toString();
     }
 
     /**
@@ -105,11 +111,6 @@ public class RandomServiceImpl implements RandomService {
      */
     public void getR(String str, double value) {
         List<Point> param = Arrays.stream(str.split(";")).parallel().distinct().map(Point::new).collect(Collectors.toCollection(LinkedList::new));
-        /**System.out.println("X轴坐标:");
-         param.stream().map(Point::getX).forEach((string) -> System.out.println(string));
-         System.out.println("Y轴坐标:");
-         param.stream().map(Point::getY).forEach((string) -> System.out.println(string));
-         **/
 
         Point start = param.get(0);
         List<Point> result = new LinkedList<>();
@@ -167,7 +168,7 @@ public class RandomServiceImpl implements RandomService {
 
     public List<Point> getResult(List<Point> param, double value, double sum, double max, Integer index, List<Point> result) {
 
-        if (param == null || param.size() < 3 || sum <= 0 || max <= 0 || index == null || index <= 0) {
+        if (param == null || param.size() < 3 || sum < 0 || max < 0 || index == null || index <= 0) {
             return new ArrayList<>();
         }
 

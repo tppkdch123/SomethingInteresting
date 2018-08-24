@@ -1,4 +1,4 @@
-package org.somthing.yellow.config;
+package org.something.yellow.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import lombok.Data;
@@ -10,8 +10,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.web.context.request.async.DeferredResult;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
+import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
 
 import javax.mail.Authenticator;
 import javax.mail.PasswordAuthentication;
@@ -165,6 +172,29 @@ public class SpringBootConfig {
                 return new PasswordAuthentication(username163, password163);
             }
         };
+    }
+
+    @Bean
+    public Docket createRestApi() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .genericModelSubstitutes(DeferredResult.class)
+                .useDefaultResponseMessages(false)
+                .forCodeGeneration(true)
+                .apiInfo(apiInfo())
+                .pathMapping("/")
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("org.something.yellow"))
+                .paths(PathSelectors.any())
+                .build();
+    }
+
+    private ApiInfo apiInfo() {
+        return new ApiInfoBuilder()
+                .title("Swagger")
+                .description("测试swagger")
+                .termsOfServiceUrl("https://github.com/tppkdch123/SomethingInteresting")
+                .version("2.0")
+                .build();
     }
 
 }

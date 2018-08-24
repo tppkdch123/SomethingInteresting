@@ -1,4 +1,4 @@
-package org.somthing.yellow.vo;
+package org.something.yellow.vo;
 
 /**
  * Created by huangshizhe on 2018/8/18

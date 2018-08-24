@@ -1,4 +1,4 @@
-package org.somthing.yellow.vo;
+package org.something.yellow.vo;
 
 import lombok.Data;
 

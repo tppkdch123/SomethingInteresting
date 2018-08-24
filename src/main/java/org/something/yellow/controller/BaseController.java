@@ -1,8 +1,8 @@
-package org.somthing.yellow.controller;
+package org.something.yellow.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.somthing.yellow.util.UnifiedResponse;
+import org.something.yellow.util.UnifiedResponse;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 public class BaseController {

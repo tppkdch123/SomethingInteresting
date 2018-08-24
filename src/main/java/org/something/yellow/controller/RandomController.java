@@ -1,10 +1,11 @@
-package org.somthing.yellow.controller;
+package org.something.yellow.controller;
 
-import org.somthing.yellow.service.RandomService;
-import org.somthing.yellow.util.UnifiedResponse;
-import org.somthing.yellow.vo.FirstVO;
+import io.swagger.annotations.ApiOperation;
+import org.something.yellow.service.RandomService;
+import org.something.yellow.vo.FirstVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -18,12 +19,14 @@ public class RandomController {
     @Autowired
     RandomService randomService;
 
-    @RequestMapping("")
+    @ApiOperation(value = "获取JSON格式的返回值",notes = "测试", response = FirstVO.class)
+    @RequestMapping(value = "",method = RequestMethod.GET)
     public FirstVO getResult(Double value, String params){
        return randomService.getResult(params,value);
     }
 
-    @RequestMapping("/str")
+    @ApiOperation(value = "获取字符串格式的返回值", notes = "测试", response = String.class)
+    @RequestMapping(value = "/str", method = RequestMethod.GET)
     public String getResult2(Double value, String params){
         return randomService.getResultByString(params, value);
     }

@@ -1,4 +1,4 @@
-package org.somthing.yellow.test;
+package org.something.yellow.test;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;

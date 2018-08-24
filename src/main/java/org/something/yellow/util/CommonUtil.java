@@ -1,4 +1,4 @@
-package org.somthing.yellow.util;
+package org.something.yellow.util;
 
 import java.util.Random;
 

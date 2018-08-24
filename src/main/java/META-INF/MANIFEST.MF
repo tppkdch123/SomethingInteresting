@@ -1,3 +1,3 @@
 Manifest-Version: 1.0
-Main-Class: org.somthing.yellow.Main
+Main-Class: org.something.yellow.Main
 

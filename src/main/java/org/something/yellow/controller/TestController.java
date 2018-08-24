@@ -1,7 +1,6 @@
-package org.somthing.yellow.controller;
+package org.something.yellow.controller;
 
-import org.somthing.yellow.util.UnifiedResponse;
-import org.springframework.stereotype.Controller;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/test")
 public class TestController extends BaseController{
 
+    @ApiOperation(value = "Hello world!", notes = "test", response = String.class)
     @RequestMapping(method = RequestMethod.GET,value = "")
     public String test(){
         return "Hello World";

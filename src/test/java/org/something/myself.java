@@ -35,6 +35,17 @@ public class myself {
 
     @Test
     public void testAa(){
+System.out.println(ttt());
+    }
 
+    public String ttt(){
+        try{
+            throw new Exception();
+        }catch (Exception e){
+            return "b";
+        }finally {
+            System.out.println("bbq");
+            return "c";
+        }
     }
 }

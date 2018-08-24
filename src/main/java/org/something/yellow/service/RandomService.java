@@ -1,7 +1,6 @@
-package org.somthing.yellow.service;
+package org.something.yellow.service;
 
-import org.somthing.yellow.util.UnifiedResponse;
-import org.somthing.yellow.vo.FirstVO;
+import org.something.yellow.vo.FirstVO;
 
 /**
  * Created by huangshizhe on 2018/8/18
