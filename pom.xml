@@ -47,7 +47,6 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.16.18</version>
-            <scope>provided</scope>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
@@ -137,7 +136,7 @@
     </dependencies>
     <packaging>jar</packaging>
     <build>
-        <finalName>test</finalName>
+        <finalName>something</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -163,6 +162,11 @@
                     <target>1.8</target>
                     <encoding>utf8</encoding>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.0.1</version>
             </plugin>
         </plugins>
     </build>
